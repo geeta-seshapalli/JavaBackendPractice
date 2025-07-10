@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/todos")
@@ -18,8 +19,15 @@ public class TodoController {
         todolist.add(new Todo(2, true, "Todo  2", 2));
     }
 
+    @GetMapping
+    public ResponseEntity<List<Todo>> getTodos(@RequestParam(required = false) String isCompleted) {
+        System.out.println("Incoming query param: " + isCompleted);
+        return ResponseEntity.ok(todolist);
+    }
+
     @GetMapping("/")
     public static List<Todo> getTodos() {
+
         return todolist;
     }
 
