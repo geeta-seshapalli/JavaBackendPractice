@@ -40,4 +40,16 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found");
     }
 
+
+    @DeleteMapping("/{todoId}")
+    public ResponseEntity<?> deleteTodoById(@PathVariable Long todoId) {
+        for (Todo todo : todolist) {
+            if (todo.getId() == todoId) {
+                todolist.remove(todo);
+                return ResponseEntity.ok("Todo deleted successfully");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found");
+    }
+
 }
