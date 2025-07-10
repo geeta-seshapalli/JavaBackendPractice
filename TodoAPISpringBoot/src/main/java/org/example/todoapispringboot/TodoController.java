@@ -52,4 +52,20 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found");
     }
 
+
+    @PatchMapping("/{todoId}")
+    public ResponseEntity<?> updateTodoPartially(@PathVariable Long todoId, @RequestBody Todo updateFields){
+        for (Todo todo : todolist) {
+            if (todo.getId() == todoId) {
+                if (updateFields.getTitle() != null) {
+                    todo.setTitle(updateFields.getTitle());
+                }
+                if (updateFields.getUserId() != 0){
+                    todo.setUserId(updateFields.getUserId());
+                }
+              todo.setCompleted(updateFields.isCompleted());
+                return ResponseEntity.ok(todo);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found");    }
 }
