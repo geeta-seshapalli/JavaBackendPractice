@@ -1,6 +1,7 @@
 package org.example.todoapispringboot;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,5 +29,14 @@ public class TodoController {
         return newTodo;
     }
 
+    @GetMapping("/todos/{todoId}")
+    public ResponseEntity<Todo> getTodoById(@PathVariable Long todoId) {
+        for (Todo todo : todolist) {
+            if (todo.getId() == todoId) {
+                return ResponseEntity.ok(todo);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }
