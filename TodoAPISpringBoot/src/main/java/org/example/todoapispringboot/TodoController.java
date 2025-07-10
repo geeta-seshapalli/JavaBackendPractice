@@ -31,13 +31,13 @@ public class TodoController {
     }
 
     @GetMapping("/{todoId}")
-    public ResponseEntity<Todo> getTodoById(@PathVariable Long todoId) {
+    public ResponseEntity<?> getTodoById(@PathVariable Long todoId) {
         for (Todo todo : todolist) {
             if (todo.getId() == todoId) {
                 return ResponseEntity.ok(todo);
             }
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo not found");
     }
 
 }
